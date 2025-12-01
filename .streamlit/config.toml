@@ -1,0 +1,18 @@
+[theme]
+# Forces the app to always use dark mode
+base = "dark"
+
+# Primary accent color (Submit buttons, active sliders, etc.) - Cyan
+primaryColor = "#00ADB5"
+
+# Main background color - Very Dark Grey
+backgroundColor = "#222831"
+
+# Sidebar and input field background - Slightly lighter Grey
+secondaryBackgroundColor = "#393E46"
+
+# Text color - Off-white
+textColor = "#EEEEEE"
+
+# Font family
+font = "sans serif"
