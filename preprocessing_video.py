@@ -10,7 +10,7 @@ from langchain.agents import create_agent
 from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import MemorySaver
 import uuid
-import fitz  # PyMuPDF
+import fitz # PyMuPDF
 import pytesseract
 from PIL import Image
 import io
@@ -19,12 +19,21 @@ import os
 from urllib.parse import urlparse, unquote
 import requests
 from langchain.tools import tool
-
+from dotenv import load_dotenv
+load_dotenv()
 
 INDEX_NAME = "ai-tutor"
 EMBED_MODEL = "all-MiniLM-L6-v2"  # or OpenAI embeddings
 WHISPER_MODEL = "small"
 
+pc = Pinecone(api_key=os.environ["PINECONE_KEY"])
+
+spec = ServerlessSpec(
+    cloud="aws", region="us-east-1"
+)
+
+# embeddings (sentence-transformers)
+embedder = SentenceTransformer(EMBED_MODEL)
 
 
 def download_audio(youtube_url, out_path="audio.mp3"):
@@ -81,14 +90,7 @@ def chunk_segments(segments, max_chars=1000, overlap_chars=200):
     return chunks
 
 
-pc = Pinecone(api_key=os.environ["PINECONE_KEY"])
 
-spec = ServerlessSpec(
-    cloud="aws", region="us-east-1"
-)
-
-# embeddings (sentence-transformers)
-embedder = SentenceTransformer(EMBED_MODEL)
 
 def embed_texts(texts):
     return embedder.encode(texts, show_progress_bar=False).tolist()
@@ -178,7 +180,7 @@ def download_pdf(url):
     # If URL does not contain a real filename, generate one
     if not filename.lower().endswith(".pdf"):
         filename = "downloaded_file.pdf"
-    folder = "/content/pdf"
+    folder = "./pdf"
     os.makedirs(folder, exist_ok=True)
 
     local_path = os.path.join(folder, filename)

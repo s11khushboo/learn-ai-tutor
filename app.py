@@ -1,84 +1,77 @@
 import streamlit as st
-import uuid
-from pinecone import Pinecone, ServerlessSpec
-from sentence_transformers import SentenceTransformer
-import time
-import os
-from dotenv import load_dotenv
+
 import preprocessing_video as helper
+import uuid
 
-load_dotenv()
-EMBED_MODEL = "all-MiniLM-L6-v2"  # or OpenAI embeddings
-pc = Pinecone(api_key=os.environ["PINECONE_KEY"])
-index_name = helper.INDEX_NAME
-# connect to index
-index = pc.Index(index_name)
+# Setup
+st.set_page_config(page_title="Chat Assistant", layout="wide")
+st.title("🤖 AI Chat Assistant with Memory")
 
-
-# embeddings (sentence-transformers)
-embedder = SentenceTransformer(EMBED_MODEL)
-# Initialize session ID for memory
+# Initialize session state
 if "thread_id" not in st.session_state:
     st.session_state.thread_id = str(uuid.uuid4())
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-st.session_state.agent = helper.answer_query()
+if "agent" not in st.session_state:
+    # Create tools
+    agent=helper.create_search_agent()
 
-# UI
+    st.session_state.agent = agent
 
-st.title("💬 AI Chat Assistant")
+# Sidebar
+with st.sidebar:
+    st.header("Settings")
+
+    if st.button("🔄 Clear Chat History"):
+        st.session_state.messages = []
+        st.session_state.thread_id = str(uuid.uuid4())
+        st.rerun()
+
+    st.divider()
+    st.write(f"**Thread ID:** `{st.session_state.thread_id[:8]}...`")
+    st.write(f"**Messages:** {len(st.session_state.messages)}")
 
 # Display chat history
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
-# --- SIDE PANEL CONTROLS ---
-with st.sidebar:
-    st.header("💾 Chat Controls")
 
-    chat_history = st.session_state.get("messages", [])
-
-    if chat_history:
-        download_string = ""
-
-        # Download Button
-        st.download_button(
-            label="Download Chat History (.txt)",
-            data=download_string,
-            file_name="streamlit_chatbot_history.txt",
-            mime="text/plain",
-            type="primary"
-        )
-
-        st.markdown("---")
-
-        # Clear Button
-        if st.button("Clear Chat", help="Permanently deletes all messages from memory."):
-            st.session_state.messages = []
-            st.rerun()
-
-    else:
-        st.info("Start chatting to enable download and clear controls!")
 # Chat input
-if user_input := st.chat_input("Type your message..."):
-    # Add user message to history
-    st.session_state.messages.append({"role": "user", "content": user_input})
-
+if prompt := st.chat_input("Ask me anything..."):
+    # Display user message
     with st.chat_message("user"):
-        st.write(user_input)
+        st.write(prompt)
 
-    # Get agent response
+    # Store user message
+    st.session_state.messages.append({
+        "role": "user",
+        "content": prompt
+    })
+
+    # Get response from agent
     with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
-            result = st.session_state.agent.invoke(
-                {"messages": [{"role": "user", "content": user_input}]},
-                config={"configurable": {"thread_id": st.session_state.thread_id}}
-            )
+        with st.spinner("⏳ Processing your request..."):
+            try:
+                # Invoke agent with memory
+                result = st.session_state.agent.invoke(
+                    {"messages": [{"role": "user", "content": prompt}]},
+                    config={
+                        "configurable": {
+                            "thread_id": st.session_state.thread_id
+                        }
+                    }
+                )
 
-            response = result["messages"][-1].content
-            st.write(response)
+                response = result["messages"][-1].content
+                st.write(response)
 
-            # Add assistant message to history
-            st.session_state.messages.append({"role": "assistant", "content": response})
+                # Store assistant message
+                st.session_state.messages.append({
+                    "role": "assistant",
+                    "content": response
+                })
+
+            except Exception as e:
+                st.error(f"Error: {str(e)}")
