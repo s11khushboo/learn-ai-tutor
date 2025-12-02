@@ -19,14 +19,13 @@ import os
 from urllib.parse import urlparse, unquote
 import requests
 from langchain.tools import tool
-from dotenv import load_dotenv
-load_dotenv()
+from keyloader import get_secret
 
 INDEX_NAME = "ai-tutor"
 EMBED_MODEL = "all-MiniLM-L6-v2"  # or OpenAI embeddings
 WHISPER_MODEL = "small"
 
-pc = Pinecone(api_key=os.environ["PINECONE_KEY"])
+pc = Pinecone(api_key=get_secret("PINECONE_KEY"))
 
 spec = ServerlessSpec(
     cloud="aws", region="us-east-1"
@@ -361,7 +360,7 @@ Rules:
 def create_search_agent():
     """Create and return a configured search agent."""
 
-    llm = ChatOpenAI(model="gpt-3.5-turbo",openai_api_key=os.environ["OPENAI_API_KEY"])
+    llm = ChatOpenAI(model="gpt-3.5-turbo",openai_api_key=get_secret("OPENAI_API_KEY"))
     checkpointer = MemorySaver()
 
 
