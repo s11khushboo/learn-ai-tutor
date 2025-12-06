@@ -1,24 +1,58 @@
-# Joy – Your AI Tutor After the Bootcamp
+# Joy – AI Tutor for After the Bootcamp
 
-Joy is your personal AI-powered learning companion designed to support you after your coding bootcamp.
-Bootcamps move fast — and once they’re over, many learners feel stuck. Joy helps bridge that gap by giving you continuous support, personalized explanations, and practical guidance as you continue your learning journey.
+A Streamlit-powered learning assistant with vector search, YouTube/PDF ingestion, and AI reasoning.
 
-Joy is patient, clear, and always available to help you grow your skills at your own pace.
+Joy is an intelligent AI tutor built to help developers continue learning after finishing their coding bootcamp.
+Bootcamps move fast. Once they’re done, many learners feel stuck. Joy solves this by letting you:
+
+Upload your PDF notes,
+
+Ingest and understand YouTube lectures,
+
+Ask deep AI/ML/technical questions,
+
+Search your personalized knowledge base using vectors,
+
+Chat naturally through a clean Streamlit UI.
+
+Joy becomes your ongoing mentor—patient, clear, and always available.
 
 
-# 🧠 Why Joy?
+# 📦 Tech Stack
+Component	Technology
+Interface	Streamlit
+AI Model	ChatOpenAI / GPT
+Transcription	OpenAI Whisper
+Embeddings	all-MiniLM-L6-v2
+Vector DB	Pinecone
+Agent Framework	LangChain
+PDF Processing	PyMuPDF (fitz) + Tesseract
+OCR	pytesseract
+Video Handling	yt_dlp
 
-Bootcamps are intense and provide a great foundation — but real mastery comes afterward.
-Joy helps you:
 
-Keep learning consistently
 
-Fill in knowledge gaps
+# 🚀 Installation
+1. Clone repository
+git clone https://github.com/yourname/joy-ai-tutor.git
+cd joy-ai-tutor
 
-Gain confidence before job interviews
+2. Install requirements
+pip install -r requirements.txt
 
-Work through topics at your own speed
+3. Environment variables
 
-Avoid feeling lost after graduation
+Create a .env file or use your keyloader system:
 
-Joy is like having a mentor who never gets tired of your questions.
+OPENAI_API_KEY=your_key
+PINECONE_KEY=your_key
+
+4. Run Streamlit UI
+streamlit run app.py
+
+
+# 🧡 Joy’s Purpose
+
+Bootcamp ends. Learning doesn’t.
+Joy continues teaching you the things you didn’t have time to learn in class—
+and the things you’re ready to understand now.
