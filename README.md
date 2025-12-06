@@ -19,36 +19,48 @@ Joy becomes your ongoing mentor—patient, clear, and always available.
 
 
 # 📦 Tech Stack
-Component	Technology
+Component	Technology 
+
 Interface	Streamlit
+
 AI Model	ChatOpenAI / GPT
+
 Transcription	OpenAI Whisper
+
 Embeddings	all-MiniLM-L6-v2
+
 Vector DB	Pinecone
+
 Agent Framework	LangChain
+
 PDF Processing	PyMuPDF (fitz) + Tesseract
+
 OCR	pytesseract
+
 Video Handling	yt_dlp
 
 
 
 # 🚀 Installation
 1. Clone repository
-git clone https://github.com/yourname/joy-ai-tutor.git
-cd joy-ai-tutor
+   
+  git clone https://github.com/yourname/joy-ai-tutor.git
+  cd joy-ai-tutor
 
-2. Install requirements
-pip install -r requirements.txt
 
-3. Environment variables
+3. Install requirements
+ 
+  pip install -r requirements.txt
 
-Create a .env file or use your keyloader system:
+5. Environment variables
 
-OPENAI_API_KEY=your_key
-PINECONE_KEY=your_key
+  Create a .env file or use your keyloader system:
+    
+    OPENAI_API_KEY=your_key
+    PINECONE_KEY=your_key
 
 4. Run Streamlit UI
-streamlit run app.py
+    streamlit run app.py
 
 
 # 🧡 Joy’s Purpose
