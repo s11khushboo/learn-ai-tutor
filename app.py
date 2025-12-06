@@ -5,7 +5,7 @@ import uuid
 
 # Setup
 st.set_page_config(page_title="Chat Assistant", layout="wide")
-st.title("🤖 AI Chat Assistant with Memory")
+st.title("Welcome! I am JOY, your intelligent AI tutor.")
 
 # Initialize session state
 if "thread_id" not in st.session_state:
@@ -76,3 +76,4 @@ if prompt := st.chat_input("Ask me anything..."):
             except Exception as e:
 
                 st.error(f"Error: {str(e)}")
+
