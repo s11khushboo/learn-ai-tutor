@@ -1,4 +1,4 @@
-# Joy – AI Tutor for After the Bootcamp
+# Joy – AI Tutor After the Bootcamp
 
 Live Demo: https://learn-ai-tutor.streamlit.app/
 
