@@ -354,7 +354,7 @@ Rules:
 - Behavior:
   • Be accurate and clear.
   • Do not hallucinate about documents.
-  • If you dont find any document related to question then say i dont know
+  • If you dont find any document related to question then politely say i dont know
 """
 
 def create_search_agent():
