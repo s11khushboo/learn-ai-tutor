@@ -49,17 +49,27 @@ Video Handling	yt_dlp
                 ┌──────────────────┐
                 │ LangChain Agent  │
                 └───────┬─────────┘
+                
          ┌──────────────┼──────────────────────┐
+         
          ▼              ▼                      ▼
+         
  ingest_youtube  ingest_pdf_tool      search_vector_db
+ 
          │              │                      │
+         
          ▼              ▼                      ▼
+         
    Whisper ASR   PDF + OCR Engine        Pinecone Vector DB
+   
          │              │
          └────── Embeddings ────────────┘
+         
                           ▼
                **LangSmith Evaluation**
+               
      (trace runs, monitor accuracy, debug tool calls)
+     
 
 
 
