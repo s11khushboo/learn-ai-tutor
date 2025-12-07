@@ -42,24 +42,42 @@ Video Handling	yt_dlp
 
 # Technical Architecture:
 
-            ┌──────────────────────────┐
-            │        Streamlit UI       │
-            └─────────────┬────────────┘
-                          ▼
-                ┌──────────────────┐
-                │  LangChain Agent │
-                └───────┬─────────┘
-         ┌──────────────┼──────────────────────┐
-         ▼              ▼                      ▼
- ingest_youtube   ingest_pdf_tool      search_vector_db
-         │              │                      │
-         ▼              ▼                      ▼
-   Whisper ASR     PDF + OCR Engine       Pinecone Vector DB
-         │              │
-         └────── Embeddings ────────────┘
-                          ▼
-               LangSmith Evaluation
-    (trace runs, monitor accuracy, debug tool calls)
+
+---
+
+### 🔍 Component Breakdown
+
+#### **Streamlit UI**
+The user-facing interface where learners interact with Joy.
+
+#### **LangChain Agent**
+Handles reasoning, tool-calling, and response generation.
+
+#### **Ingestion Tools**
+- **YouTube ingestion** → yt_dlp → Whisper ASR → chunking → embeddings  
+- **PDF ingestion** → PyMuPDF → OCR → chunking → embeddings  
+
+#### **Pinecone Vector Database**
+Stores all embedded knowledge for retrieval.
+
+#### **Embeddings**
+Generated via **SentenceTransformer — all-MiniLM-L6-v2**.
+
+#### **LangSmith Evaluation**
+Used for:
+- Tracing  
+- Debugging  
+- Monitoring accuracy  
+- Improving agent behavior  
+
+---
+
+# ⚠️ IMPORTANT  
+The ASCII diagram **must be inside triple backticks** (```) by itself.  
+The outer explanation text must be **outside** the diagram block.
+
+If you'd like, I can convert your architecture to a **Mermaid diagram** which is even cleaner and works perfectly in GitHub README.
+
 
      
 
