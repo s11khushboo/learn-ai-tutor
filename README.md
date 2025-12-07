@@ -1,5 +1,7 @@
 # Joy – AI Tutor for After the Bootcamp
 
+Live Demo: https://learn-ai-tutor.streamlit.app/
+
 A Streamlit-powered learning assistant with vector search, YouTube/PDF ingestion, and AI reasoning.
 
 Joy is an intelligent AI tutor built to help developers continue learning after finishing their coding bootcamp.
