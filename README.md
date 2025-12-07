@@ -72,17 +72,6 @@ Used for:
 
 ---
 
-# ⚠️ IMPORTANT  
-The ASCII diagram **must be inside triple backticks** (```) by itself.  
-The outer explanation text must be **outside** the diagram block.
-
-If you'd like, I can convert your architecture to a **Mermaid diagram** which is even cleaner and works perfectly in GitHub README.
-
-
-     
-
-
-
 
 # 🚀 Installation
 1. Clone repository
