@@ -16,10 +16,19 @@ from PIL import Image
 import io
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import os
+import imageio_ffmpeg
 from urllib.parse import urlparse, unquote
 import requests
 from langchain.tools import tool
 from keyloader import get_secret
+
+os.environ["IMAGEIO_FFMPEG_EXE"] = imageio_ffmpeg.get_ffmpeg_exe()
+
+@st.cache_resource
+def load_model():
+    return whisper.load_model("base")
+
+model = load_model()
 
 INDEX_NAME = "ai-tutor"
 EMBED_MODEL = "all-MiniLM-L6-v2"  # or OpenAI embeddings
@@ -59,7 +68,6 @@ def get_video_id(url: str):
 
 # transcribe
 def transcribe_whisper(audio_path):
-    model = whisper.load_model(WHISPER_MODEL)
     result = model.transcribe(audio_path, task="transcribe")  # returns segments with timestamps
     return result
 
