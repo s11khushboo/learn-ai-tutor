@@ -21,6 +21,7 @@ from urllib.parse import urlparse, unquote
 import requests
 from langchain.tools import tool
 from keyloader import get_secret
+import streamlit as st
 
 os.environ["IMAGEIO_FFMPEG_EXE"] = imageio_ffmpeg.get_ffmpeg_exe()
 
