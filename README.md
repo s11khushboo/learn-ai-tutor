@@ -100,5 +100,7 @@ Used for:
 # 🧡 Joy’s Purpose
 
 Bootcamp ends. Learning doesn’t.
-Joy continues teaching you the things you didn’t have time to learn in class—
+Joy continues teaching you the things you didn’t have time to learn in class
 and the things you’re ready to understand now.
+
+
